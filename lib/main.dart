@@ -1,0 +1,168 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    Map<int, Color> color = {
+      50: Color.fromRGBO(32, 137, 149, .1),
+      100: Color.fromRGBO(32, 137, 149, .2),
+      200: Color.fromRGBO(32, 137, 149, .3),
+      300: Color.fromRGBO(32, 137, 149, .4),
+      400: Color.fromRGBO(32, 137, 149, .5),
+      500: Color.fromRGBO(32, 137, 1499, .6),
+      600: Color.fromRGBO(32, 137, 149, .7),
+      700: Color.fromRGBO(32, 137, 149, .8),
+      800: Color.fromRGBO(32, 137, 149, .9),
+      900: Color.fromRGBO(32, 137, 149, 1),
+    };
+    MaterialColor colorCustom = MaterialColor(0xFF208995, color);
+
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          fontFamily: 'Schyler',
+          primarySwatch: colorCustom,
+        ),
+        home: DefaultTabController(
+          length: 5,
+          initialIndex: 0,
+          child: Scaffold(
+            appBar: AppBar(
+                bottom: TabBar(
+                  isScrollable: true,
+                  indicatorColor: Colors.white,
+                  unselectedLabelColor: Color.fromRGBO(140, 197, 204, 1),
+                  indicator: UnderlineTabIndicator(),
+                  tabs: <Widget>[
+                    Tab(text: "MAIN NEWS"),
+                    Tab(text: "SPORTS"),
+                    Tab(text: "SOCIETY"),
+                    Tab(text: "POLITICS"),
+                    Tab(text: "OTHERS"),
+                  ],
+                ),
+                title: Text('Daily News'),
+                titleSpacing: 0,
+                leading: Icon(Icons.home),
+                actions: <Widget>[
+                  IconButton(
+                    tooltip: 'Axtar',
+                    icon: Icon(Icons.search),
+                    onPressed: () {},
+                  ),
+                  PopupMenuButton(itemBuilder: (BuildContext context) {}),
+                ]),
+            body: BodyLayout(),
+          ),
+        ));
+  }
+}
+
+class BodyLayout extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return _myListView(context);
+  }
+}
+
+Widget _myListView(BuildContext context) {
+  final titles = [
+    "Mercedes-Benz-den BMW X6-ya reqib Mercedes-Benz-den BMW X6-ya reqib - FOTO",
+    "“Qarabağ” ispan futbolçunu heyətinə qatıb “Qarabağ” ispan futbolçunu heyətinə qatıb",
+    "Balıqçı 800 metr dərinlikdən “yadplanetli” tutdu Balıqçı 800 metr dərinlikdən “yadplanetli” tutdu - FOTO"
+  ];
+
+  final coverImages = [
+    "https://cdnsecakmi.kaltura.com/p/1807801/sp/180780100/thumbnail/entry_id/0_fvlm0sij/version/100002/def_height/960/def_width/1280",
+    "https://assets.oxu.az/uploads/W1siZiIsIjIwMTkvMDkvMTcvMTMvMzIvMzEvMGIwOWYyMWUtNjlmMC00Y2QzLTkwOWItZTdlMjdiMGM2MDU4L1lsSmJ0UkROWnBCc2J0Ri04MDB4NDUwLW5vUGFkLmpwZyJdLFsicCIsImVuY29kZSIsImpwZyIsIi1xdWFsaXR5IDgwIl0sWyJwIiwidGh1bWIiLCI2MjB4NDY1XHUwMDNlIl1d?sha=2902716c5498a29d",
+    "https://assets.oxu.az/uploads/W1siZiIsIjIwMTkvMDkvMTcvMTEvNTkvMDAvMGY1M2EwODQtMGUyNS00MjJjLTlhYjYtM2Q5NWUxYjY4ZTBhLzg0MTYyYTcyNzE5ODI2YzczNTA2NDdiYjJkNzU3NjY5X185ODB4LmpwZyJdLFsicCIsImVuY29kZSIsImpwZyIsIi1xdWFsaXR5IDgwIl0sWyJwIiwidGh1bWIiLCI2MjB4NDY1XHUwMDNlIl1d?sha=9cc537b21ed8061a"
+  ];
+
+  return ListView.builder(
+      padding: EdgeInsets.only(top: 2.5, bottom: 2.5),
+      itemCount: titles.length,
+      itemBuilder: (context, index) {
+        return Container(
+          width: MediaQuery.of(context).size.width,
+          padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2.5),
+          child: Card(
+            elevation: 2.5,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+            child: Container(
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.width / 3 * 2,
+                        child: Stack(children: <Widget>[
+                          Container(
+                              decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(5),
+                                topRight: Radius.circular(5)),
+                            image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: NetworkImage(coverImages[index])),
+                          )),
+                          Container(
+                              decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                      begin: Alignment.center,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                    Colors.black.withOpacity(0.0),
+                                    Colors.black.withOpacity(1)
+                                  ],
+                                      stops: [
+                                    0.0,
+                                    1.0
+                                  ])),
+                              child: Container(
+                                padding: EdgeInsets.only(left: 15, bottom: 15),
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.height,
+                                alignment: Alignment.bottomLeft,
+                                child: Text(
+                                  titles[index],
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ))
+                        ])),
+                    Container(
+                      padding: EdgeInsets.only(left: 15, top: 7.5, bottom: 7.5),
+                      decoration: BoxDecoration(
+                          color: Color.fromRGBO(74, 78, 65, 1),
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(5),
+                              bottomRight: Radius.circular(5))),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: <Widget>[
+                          Text("13:48",
+                              style: TextStyle(
+                                  color: Color.fromRGBO(159, 161, 154, 1),
+                                  fontSize: 12)),
+                          SizedBox(width: 7.5),
+                          Image(
+                              image: AssetImage('assets/images/eye.png'), height: 14),
+                          SizedBox(width: 7.5),
+                          Text("2220",
+                              style: TextStyle(
+                                  color: Color.fromRGBO(159, 161, 154, 1),
+                                  fontSize: 12)),
+                        ],
+                      ),
+                    )
+                  ],
+                )),
+          ),
+        );
+      });
+}
